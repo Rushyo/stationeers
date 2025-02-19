@@ -1,0 +1,21 @@
+alias PipeAnalyser d0
+alias OutputReg d1
+alias Alarm d2
+beqz 1 20
+yield
+l r0 PipeAnalyser Pressure
+sgt r0 r0 50000
+beqz r0 11
+s Alarm On 1
+s OutputReg On 1
+j 19
+s Alarm On 0
+l r0 PipeAnalyser Temperature
+sub r0 r0 273.15
+slt r0 r0 35
+beqz r0 18
+s OutputReg On 1
+j 19
+s OutputReg On 0
+j 3
+j 9999

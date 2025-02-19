@@ -1,0 +1,23 @@
+alias GasSensor d0
+alias Co2Vent d1
+alias Co2Display d2
+alias Door1 d3
+alias Door2 d4
+s Co2Display Mode 1
+beqz 1 22
+yield
+l r0 GasSensor RatioCarbonDioxide
+l r1 GasSensor Pressure
+s Co2Display Setting r0
+l r2 Door1 Open
+slt r2 r2 1
+l r3 Door2 Open
+slt r3 r3 1
+and r2 r2 r3
+sgt r0 r0 0.001
+sgt r1 r1 25
+and r0 r0 r1
+and r0 r0 r2
+s Co2Vent On r0
+j 6
+j 9999

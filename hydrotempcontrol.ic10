@@ -1,0 +1,10 @@
+alias GasSensor d0
+alias CoolerVent d1
+beqz 1 9
+yield
+l r0 GasSensor Temperature
+sub r0 r0 273.15
+sgt r0 r0 25
+s CoolerVent On r0
+j 2
+j 9999

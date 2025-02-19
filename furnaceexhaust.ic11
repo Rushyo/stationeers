@@ -1,0 +1,36 @@
+pin PipeAnalyser d0; //https://stationeers-wiki.com/Pipe_Analyzer
+pin OutputReg d1; //https://stationeers-wiki.com/Pressure_Regulator
+pin Alarm d2; //https://stationeers-wiki.com/Kit_(Speaker)
+
+const DesiredTempC = 35;
+const KelvinConstant = 273.15;
+const MaxBackPressureKpa = 50000;
+
+void Main()
+{
+    while(true)
+    {
+        yield;
+        
+        if(PipeAnalyser.Pressure > MaxBackPressureKpa)
+        {
+            Alarm.On = 1;
+            //Emergency pressure relief to avoid overpressure
+            OutputReg.On = 1;
+        }
+        else
+        {
+            Alarm.On = 0;
+            var tempK = PipeAnalyser.Temperature;
+            var tempC = tempK - KelvinConstant;
+            if(tempC < DesiredTempC)
+            {
+                OutputReg.On = 1;
+            }
+            else
+            {
+                OutputReg.On = 0;
+            }
+        }
+    }
+}

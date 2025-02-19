@@ -1,0 +1,16 @@
+pin GasSensor d0;
+pin CoolerVent d1;
+
+const DesiredTempC = 25;
+const KelvinConstant = 273.15;
+
+void Main()
+{
+    while(true)
+    {
+        yield;
+        var tempK = GasSensor.Temperature;
+        var tempC = tempK - KelvinConstant;
+        CoolerVent.On = tempC > DesiredTempC;     
+    }
+}

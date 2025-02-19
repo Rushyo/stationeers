@@ -1,0 +1,23 @@
+pin GasSensor d0;
+pin Co2Vent d1;
+pin Co2Display d2;
+pin Door1 = d3;
+pin Door2 = d4;
+
+const DisplayPercentageMode = 1;
+const MaxCo2 = 0.001; //0..1
+const MinPressure = 25; //kPa
+
+void Main()
+{
+    Co2Display.Mode = DisplayPercentageMode;
+    while(true)
+    {
+        yield;
+        var co2 = GasSensor.RatioCarbonDioxide; //0..1
+        var pressure = GasSensor.Pressure; //kPa
+        Co2Display.Setting = co2;
+        var doorsClosed = Door1.Open < 1 & Door2.Open < 1;
+        Co2Vent.On = co2 > MaxCo2 & pressure > MinPressure & doorsClosed;     
+    }
+}

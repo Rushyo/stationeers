@@ -1,0 +1,20 @@
+pin DaySensor d0; //Place sensor facing starwards
+pin AngleMemory d1; //Used for making on-the-fly corrections
+
+const SensorDataAngle = 0; //Assuming day sensor up
+
+void Main()
+{
+    var panelPowerAngle = AngleMemory.Setting;
+    var correctionAngle = SensorDataAngle - panelPowerAngle;
+    correctionAngle = correctionAngle - 90;
+
+    while(true)
+    {
+        yield;
+        var vertical = 90 - DaySensor.Vertical;
+        var horizontal = DaySensor.Horizontal + correctionAngle;
+        DevicesOfType("StructureSolarPanel").Vertical = vertical;
+        DevicesOfType("StructureSolarPanel").Horizontal = horizontal;
+    }
+}
