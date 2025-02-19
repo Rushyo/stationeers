@@ -1,14 +1,14 @@
 pin GasSensor d0;
 pin Co2Vent d1;
 pin Co2Display d2;
-pin Door1 = d3;
-pin Door2 = d4;
+pin Door1 d3;
+pin Door2 d4;
 
 const DisplayPercentageMode = 1;
 const MaxCo2 = 0.001; //0..1
 const MinPressure = 25; //kPa
 
-// Ensures CO2 doesn't leak from Hydroponics in to the rest of the base and also (slowly) recovers any that does
+//Ensures CO2 doesn't leak from Hydroponics in to the rest of the base and also (slowly) recovers any that does
 
 void Main()
 {
