@@ -1,8 +1,9 @@
 alias DaySensor d0
 alias AngleMemory d1
 l r0 AngleMemory Setting
+sub r0 0 r0
 sub r0 r0 90
-beqz 1 13
+beqz 1 14
 yield
 l r1 DaySensor Vertical
 sub r1 90 r1
@@ -10,5 +11,5 @@ l r2 DaySensor Horizontal
 add r2 r2 r0
 sb -2045627372 Vertical r1
 sb -2045627372 Horizontal r2
-j 4
+j 5
 j 9999
