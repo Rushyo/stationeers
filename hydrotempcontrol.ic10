@@ -1,10 +1,20 @@
 alias GasSensor d0
 alias CoolerVent d1
-beqz 1 9
+move r0 0
+beqz 1 19
 yield
-l r0 GasSensor Temperature
-sub r0 r0 273.15
-sgt r0 r0 25
-s CoolerVent On r0
-j 2
+l r1 GasSensor Temperature
+sub r1 r1 273.15
+slt r2 r1 25
+and r2 r0 r2
+beqz r2 12
+s CoolerVent On 0
+move r0 0
+seqz r2 r0
+sgt r1 r1 30
+and r1 r2 r1
+beqz r1 18
+s CoolerVent On 1
+move r0 1
+j 3
 j 9999

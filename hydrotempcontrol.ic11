@@ -2,17 +2,28 @@ pin GasSensor d0;
 pin CoolerVent d1;
 
 const DesiredTempC = 25;
+const MaxTempC = 30;
 const KelvinConstant = 273.15;
 
 //Manages temperature in a room given a wall cooler and a gas sensor
 
 void Main()
 {
+    var active = false;
     while(true)
     {
         yield;
         var tempK = GasSensor.Temperature;
         var tempC = tempK - KelvinConstant;
-        CoolerVent.On = tempC > DesiredTempC;     
+        if(active & tempC < DesiredTempC)
+        {
+            CoolerVent.On = 0;
+            active = false;
+        }
+        if(!active & tempC > MaxTempC)
+        {
+            CoolerVent.On = 1;
+            active = true;
+        }
     }
 }
