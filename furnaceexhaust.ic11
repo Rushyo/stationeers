@@ -5,10 +5,12 @@ pin Alarm d2; //https://stationeers-wiki.com/Kit_(Speaker)
 const DesiredTempC = 35;
 const KelvinConstant = 273.15;
 const MaxBackPressureKpa = 50000;
+const MinBackPressureKpa = 10;
 
 /*
 Allows furnace exhaust gases to be reclaimed but only once they're at a safe temperature.
-Also allows the output Pressure Regulator to act an emergency pressure relief valve for the exhaust system.
+Also allows the output Pressure Regulator to act an emergency pressure relief valve for the exhaust system, with corresponding alarm.
+Note that the alarm needs to be in atmosphere (in space, no one can hear your overpressure klaxon).
 */
 
 void Main()
@@ -28,7 +30,8 @@ void Main()
             Alarm.On = 0;
             var tempK = PipeAnalyser.Temperature;
             var tempC = tempK - KelvinConstant;
-            if(tempC < DesiredTempC)
+            var pressure = PipeAnalyser.Pressure;
+            if(tempC < DesiredTempC & pressure >= MinBackPressureKpa)
             {
                 OutputReg.On = 1;
             }
