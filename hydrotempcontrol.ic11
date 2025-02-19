@@ -4,6 +4,8 @@ pin CoolerVent d1;
 const DesiredTempC = 25;
 const KelvinConstant = 273.15;
 
+//Manages temperature in a room given a wall cooler and a gas sensor
+
 void Main()
 {
     while(true)

@@ -6,6 +6,11 @@ const DesiredTempC = 35;
 const KelvinConstant = 273.15;
 const MaxBackPressureKpa = 50000;
 
+/*
+Allows furnace exhaust gases to be reclaimed but only once they're at a safe temperature.
+Also allows the output Pressure Regulator to act an emergency pressure relief valve for the exhaust system.
+*/
+
 void Main()
 {
     while(true)

@@ -1,6 +1,8 @@
 pin DaySensor d0; //Place sensor facing starwards
 pin AngleMemory d1; //Used for making on-the-fly corrections
 
+//A simple solar panel tracking script
+
 void Main()
 {
     var correctionAngle = 0 - AngleMemory.Setting - 90;

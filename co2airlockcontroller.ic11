@@ -8,6 +8,8 @@ const DisplayPercentageMode = 1;
 const MaxCo2 = 0.001; //0..1
 const MinPressure = 25; //kPa
 
+// Ensures CO2 doesn't leak from Hydroponics in to the rest of the base and also (slowly) recovers any that does
+
 void Main()
 {
     Co2Display.Mode = DisplayPercentageMode;
